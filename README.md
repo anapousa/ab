@@ -295,7 +295,7 @@ git push origin bug
 
 #### Passo 3
 
-Em seguida, crie um Pull Request (PR) com suas modificações. Para isso, acesse no navegador a seguinte URL, substituindo `<USER>` pelo seu nome de usuário no GitHub: `https://github.com/<USER>/adote-facil/compare/main...bug`.
+Em seguida, crie um Pull Request (PR) com suas modificações. Para isso, acesse no navegador a seguinte URL, substituindo `<USER>` pelo seu nome de usuário no GitHub: `https://github.com/<USER>/adote-facil/compare/main...bug`
 
 Nessa página, revise as alterações feitas. Após a verificação, clique no botão Create pull request. Na janela que abrir, adicione uma breve descrição do PR e confirme a criação clicando novamente em **Create pull request**.
 
@@ -322,7 +322,7 @@ git push origin fixture
 ```
 Caso solicitado, informe seu nome de usuário e o token que criamos na *Tarefa 1* para autenticação.
 
-Em seguida, crie novamente um novo Pull Request (PR) com a correção. Para isso, acesse no navegador a seguinte URL, substituindo <USER> pelo seu nome de usuário no GitHub: `https://github.com/<USER>/adote-facil/compare/main...fixture`.
+Em seguida, crie novamente um novo Pull Request (PR) com a correção. Para isso, acesse no navegador a seguinte URL, substituindo <USER> pelo seu nome de usuário no GitHub: `https://github.com/<USER>/adote-facil/compare/main...fixture`
 
 ![image](https://github.com/user-attachments/assets/db547d8a-a3ee-4a3c-81ad-69aa76ebac2a)
 
@@ -332,6 +332,6 @@ Você pode acompanhar o andamento do pipeline acessando a aba **Actions** do rep
 
 ![image](https://github.com/user-attachments/assets/3b7ba313-04c5-415f-8097-946cb7f5a5c8)
 
-Após a criação do PR, o GitHub Actions iniciará automaticamente o pipeline, que executará os testes, realizará o build e realizará a entrega do artefato criando uma Release do seu projeto. Após criada, sua Release estará disponível na página inicial deste seu projeto no canto direito da sua tela.
+Após a criação do Pull Request, o GitHub Actions iniciará automaticamente o pipeline, que executará os testes, fará o build e publicará o artefato, criando uma nova release do projeto. Após criada, sua Release estará disponível na página inicial deste seu projeto no canto direito da sua tela.
 
 # FIM
