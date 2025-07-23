@@ -185,24 +185,29 @@ jobs:
           sleep 10                 # Aguarda alguns segundos para garantir que os serviços subam
           docker compose down      # Encerra os containers após o teste
 
-  # Quarto job: Geração e entrega do artefato do projeto
-  delivery:
-    needs: build  # Esse job também depende do job 'build'
-    runs-on: ubuntu-latest
+# Quarto job: Geração e entrega do artefato do projeto
+delivery:
+  needs: build  # Esse job depende do job 'build'
+  runs-on: ubuntu-latest
+  permissions:
+    contents: write  # Permissão necessária para criar release
 
-    steps:
-      - name: Checkout do código
-        uses: actions/checkout@v4
+  steps:
+    - name: Checkout do código
+      uses: actions/checkout@v4
 
-      - name: Gerar arquivo ZIP do projeto completo
-        run: zip -r adote-facil-projeto.zip . -x '*.git*' '*.github*' 'node_modules/*'
-        # Compacta todos os arquivos do repositório, exceto pastas desnecessárias como .git, .github e node_modules
+    - name: Gerar arquivo ZIP do projeto completo
+      run: zip -r adote-facil-projeto.zip . -x '*.git*' '*.github*' 'node_modules/*'
+      # Compacta o projeto, ignorando arquivos desnecessários
 
-      - name: Upload do artefato
-        uses: actions/upload-artifact@v4
-        with:
-          name: adote-facil-projeto  # Nome do artefato que aparecerá na aba de artefatos da execução
-          path: adote-facil-projeto.zip  # Caminho do arquivo que será enviado
+    - name: Criar release com artefato
+      uses: ncipollo/release-action@v1.12.0
+      with:
+        artifacts: "adote-facil-projeto.zip"
+        tag: "v1.0.0"
+        name: "Release v1.0.0"
+        body: "Release automática do projeto Adote Fácil via GitHub Actions"
+
 ```
 
 Esse arquivo configura o GitHub Actions (GHA) para ser executado sempre que um evento do tipo `pull_request` for direcionado para a branch principal (`main`) do repositório. O workflow está dividido em três jobs, que representam as etapas da automação:
