@@ -185,29 +185,28 @@ jobs:
           sleep 10                 # Aguarda alguns segundos para garantir que os serviços subam
           docker compose down      # Encerra os containers após o teste
 
-# Quarto job: Geração e entrega do artefato do projeto
-delivery:
-  needs: build  # Esse job depende do job 'build'
-  runs-on: ubuntu-latest
-  permissions:
-    contents: write  # Permissão necessária para criar release
+  # Quarto job: Geração e entrega do artefato do projeto
+  delivery:
+    needs: build  # Esse job depende do job 'build'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Permissão necessária para criar release
 
-  steps:
-    - name: Checkout do código
-      uses: actions/checkout@v4
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
 
-    - name: Gerar arquivo ZIP do projeto completo
-      run: zip -r adote-facil-projeto.zip . -x '*.git*' '*.github*' 'node_modules/*'
-      # Compacta o projeto, ignorando arquivos desnecessários
+      - name: Gerar arquivo ZIP do projeto completo
+        run: zip -r adote-facil-projeto.zip . -x '*.git*' '*.github*' 'node_modules/*'
+        # Compacta o projeto, ignorando arquivos desnecessários
 
-    - name: Criar release com artefato
-      uses: ncipollo/release-action@v1.12.0
-      with:
-        artifacts: "adote-facil-projeto.zip"
-        tag: "v1.0.0"
-        name: "Release v1.0.0"
-        body: "Release automática do projeto Adote Fácil via GitHub Actions"
-
+      - name: Criar release com artefato
+        uses: ncipollo/release-action@v1.12.0
+        with:
+          artifacts: "adote-facil-projeto.zip"
+          tag: "v1.0.0"
+          name: "Release v1.0.0"
+          body: "Release automática do projeto Adote Fácil via GitHub Actions"
 ```
 
 Esse arquivo configura o GitHub Actions (GHA) para ser executado sempre que um evento do tipo `pull_request` for direcionado para a branch principal (`main`) do repositório. O workflow está dividido em três jobs, que representam as etapas da automação:
@@ -248,9 +247,18 @@ Crie dois segredos (secrets) com os seguintes valores:
    - **Name**: `POSTGRES_USER`
    - **Secret**: `Postgres`
 
+Em seguida, clique em Add secret.
+
+<img width="586" height="437" alt="Captura de tela de 2025-07-23 14-00-20" src="https://github.com/user-attachments/assets/cdf82078-b7ae-4d78-abe0-821067996587" />
+
 2. **POSTGRES_PASSWORD**
    - **Name**: `POSTGRES_PASSWORD`
    - **Secret**: `postgres`
+
+Em seguida, clique em Add secret.
+
+<img width="586" height="437" alt="Captura de tela de 2025-07-23 14-01-14" src="https://github.com/user-attachments/assets/957be579-cb4e-4524-b87c-cd192c9a9884" />
+
 
 Esses valores simulam um cenário de acesso ao banco de dados. Eles serão utilizados automaticamente no workflow `.github/workflows/experimento-ci-cd.yml`.
 
