@@ -257,7 +257,7 @@ Este caso simula um cenário em que o código possui um erro (bug), o que faz co
 
 Vamos simular que o teste da função responsável por atualizar o e-mail do usuário está falhando — ou seja, está retornando um valor diferente do esperado.
 
-No seu editor de código, localize o arquivo `/backend/src/services/user/update-user-spec.ts` (conforme mostrado na imagem abaixo) e faça as seguintes alterações:
+Em sua máquina local, abra o projeto forkado no VSCode ou na sua IDE de preferência, localize o arquivo `/backend/src/services/user/update-user.spec.ts` (conforme mostrado na imagem abaixo) e faça as seguintes alterações:
 
 ![image](https://github.com/user-attachments/assets/e878aec6-e5a4-46ac-9d8a-bcab226fd1db)
 
