@@ -249,7 +249,7 @@ Crie dois segredos (secrets) com os seguintes valores:
 
 Em seguida, clique em Add secret.
 
-<img width="586" height="437" alt="Captura de tela de 2025-07-23 14-00-20" src="https://github.com/user-attachments/assets/cdf82078-b7ae-4d78-abe0-821067996587" />
+<img width="484" height="420" alt="image" src="https://github.com/user-attachments/assets/48290ff9-7b73-4ac4-9e0e-396245a66ab9" />
 
 2. **POSTGRES_PASSWORD**
    - **Name**: `POSTGRES_PASSWORD`
@@ -257,8 +257,7 @@ Em seguida, clique em Add secret.
 
 Em seguida, clique em Add secret.
 
-<img width="586" height="437" alt="Captura de tela de 2025-07-23 14-01-14" src="https://github.com/user-attachments/assets/957be579-cb4e-4524-b87c-cd192c9a9884" />
-
+<img width="484" height="420" alt="image" src="https://github.com/user-attachments/assets/40643f19-afae-4cad-8f36-e1446b1a15f5" />
 
 Esses valores simulam um cenário de acesso ao banco de dados. Eles serão utilizados automaticamente no workflow `.github/workflows/experimento-ci-cd.yml`.
 
@@ -333,6 +332,6 @@ Você pode acompanhar o andamento do pipeline acessando a aba **Actions** do rep
 
 ![image](https://github.com/user-attachments/assets/3b7ba313-04c5-415f-8097-946cb7f5a5c8)
 
-Após a criação do PR, o GitHub Actions iniciará automaticamente o pipeline, que executará os testes, realizará o build e gerará um arquivo **.zip** do projeto. Ao finalizar, o arquivo **.zip** estará disponível para download.
+Após a criação do PR, o GitHub Actions iniciará automaticamente o pipeline, que executará os testes, realizará o build e realizará a entrega do artefato criando uma Release do seu projeto. Após criada, sua Release estará disponível na página inicial deste seu projeto no canto direito da sua tela.
 
 # FIM
