@@ -101,10 +101,9 @@ No VSCode ou na sua IDE de preferência, clique com o botão direito sobre o dir
 
 **Arquivo YML**
 ```yml
-# Nome do workflow
 name: experimento-ci-cd
 
-# Evento que aciona o workflow: toda vez que for criado um Pull Request para a branch main
+# Evento que aciona o workflow
 on:
   pull_request:
     branches:
@@ -115,49 +114,49 @@ jobs:
 
   # Primeiro job: Executar testes unitários
   unit-test:
-    runs-on: ubuntu-latest  # Define o sistema operacional usado no runner (Ubuntu na versão mais recente)
+    runs-on: ubuntu-latest # Define o sistema operacional usado no runner (Ubuntu na versão mais recente)
     steps:
       - name: Checkout do código
-        uses: actions/checkout@v4  # Faz o download do repositório no runner
+        uses: actions/checkout@v4 # Faz o download do repositório no runner
 
       - name: Instalar dependências do backend
         run: |
-          cd backend              # Acessa a pasta do backend
-          npm install             # Instala as dependências do Node.js
+          cd backend
+          npm install
 
       - name: Executar testes unitários com Jest
         run: |
-          cd backend              # Acessa novamente a pasta do backend
-          npm test -- --coverage  # Executa os testes e gera relatório de cobertura
+          cd backend
+          npm test -- --coverage # Executa os testes e gera relatório de cobertura
 
   # Segundo job: Build (construção) das imagens Docker
   build:
-    needs: unit-test  # Esse job só será executado após o job 'unit-test' ser concluído com sucesso
+    needs: unit-test # Esse job só será executado após o job 'unit-test' ser concluído com sucesso
     runs-on: ubuntu-latest
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
 
       - name: Configurar Docker Buildx
-        uses: docker/setup-buildx-action@v2  # Habilita a ferramenta Buildx do Docker para builds mais avançados
+        uses: docker/setup-buildx-action@v2 # Habilita a ferramenta Buildx do Docker
 
       - name: Configurar Docker QEMU
-        uses: docker/setup-qemu-action@v2  # Permite builds multiplataforma usando emulação (útil em CI)
+        uses: docker/setup-qemu-action@v2 # Permite builds multiplataforma usando emulação (útil em CI)
 
       - name: Build das imagens Docker
-        run: docker compose build  # Executa o build das imagens definidas no docker-compose.yml
+        run: docker compose build # Executa o build das imagens definidas no docker-compose.yml
 
   # Terceiro job: Subir os containers temporariamente para testes básicos de integração
   up-containers:
-    needs: build  # Esse job depende do job 'build'
+    needs: build # Esse job depende do job 'build'
     runs-on: ubuntu-latest
 
     # Definição de variáveis de ambiente necessárias para o backend e banco
     env:
       POSTGRES_DB: adote_facil
       POSTGRES_HOST: adote-facil-postgres
-      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}  # Usuário do banco, vindo dos segredos do repositório
-      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}  # Senha do banco
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       POSTGRES_PORT: 5432
       POSTGRES_CONTAINER_PORT: 6500
 
@@ -166,9 +165,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Criar arquivo .env
-        working-directory: ./backend  # Define o diretório de trabalho para esse passo
+        working-directory: ./backend
         run: |
-          # Gera o arquivo .env com as variáveis definidas acima
           echo "POSTGRES_DB=${{ env.POSTGRES_DB }}" > .env
           echo "POSTGRES_HOST=${{ env.POSTGRES_HOST }}" >> .env
           echo "POSTGRES_USER=${{ env.POSTGRES_USER }}" >> .env
@@ -179,16 +177,16 @@ jobs:
       - name: Subir containers com Docker Compose
         working-directory: ./backend
         run: |
-          docker compose up -d     # Sobe os containers em segundo plano
-          sleep 10                 # Aguarda alguns segundos para garantir que os serviços subam
-          docker compose down      # Encerra os containers após o teste
+          docker compose up -d
+          sleep 10 # Aguarda alguns segundos para garantir que os serviços subam
+          docker compose down
 
-  # Quarto job: Geração e entrega do artefato do projeto
+  # Quarto job: Criação do release e entrega do artefato do projeto
   delivery:
-    needs: build  # Esse job depende do job 'build'
+    needs: build # Esse job depende do job 'build'
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # Permissão necessária para criar release
+      contents: write # Permissão necessária para criar release
 
     steps:
       - name: Checkout do código
