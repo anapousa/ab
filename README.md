@@ -319,6 +319,8 @@ Nessa página, revise as alterações realizadas. Em seguida, clique no botão C
 
 Você pode acompanhar o andamento do pipeline acessando a aba **Actions** do repositório e selecionando o nome do PR em execução.
 
-Após a criação do Pull Request, o GitHub Actions iniciará automaticamente o pipeline, que executará os testes, fará o build e publicará o artefato, criando uma nova release do projeto. Após criada, sua Release estará disponível na página inicial deste seu projeto no canto direito da sua tela.
+Após a criação do PR, o GitHub Actions iniciará automaticamente o pipeline. Esse pipeline será responsável por executar os testes, realizar o build, criar a release e gerar um arquivo .zip do projeto. Ao final do processo, o arquivo estará disponível para download. Para acessá-lo, basta clicar em Releases, localizado na barra lateral direita do repositório.
+
+<img width="1600" height="656" alt="image" src="https://github.com/user-attachments/assets/505721d3-67f8-49da-b88d-82ee3d1e53e1" />
 
 # FIM
